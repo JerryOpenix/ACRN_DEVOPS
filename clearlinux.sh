@@ -61,4 +61,6 @@ USER $username
 CMD ["bash"]
 EOF
 
-#docker build -t acrn_clrdev:22780 -f Dockerfile .
+#date > build_log;
+#docker build --no-cache --build-arg https_proxy=http://child-prc.intel.com:913 -t hv_acrn_dev -f Dockerfile . | tee >(ts "%d-%m-%y %H_%M_%S" >> build_log);
+#date >> build_log
