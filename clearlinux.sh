@@ -32,10 +32,15 @@ RUN mkdir -p /run/lock \\
 RUN swupd verify -fYb -m 22780 -F 25
 
 # Install Clear Linux and os-utils developement bundle
+# web-server-basic scm-server java-basic os-utils-gui-dev
 # https://clearlinux.org/documentation/clear-linux/reference/bundles/available-bundles#available-bundles
-RUN swupd bundle-add mixer vim c-basic dev-utils-dev package-utils \\
-	&& pip3 install kconfiglib \\
-	&& swupd clean --all
+#RUN swupd bundle-add mixer vim c-basic dev-utils-dev package-utils \\
+#	&& pip3 install kconfiglib \\
+#	&& swupd clean --all
+RUN swupd bundle-add os-clr-on-clr dev-utils-dev \\
+     && swupd bundle-add -b python3-basic \\
+     && pip3 install kconfiglib \\
+	 && swupd clean --all
 
 # Change the baseurl in [local] and [debuginfo] in clear.cfg
 RUN sed -i 's/current/releases\/22780\/clear/g' /usr/share/defaults/mock/clear.cfg
