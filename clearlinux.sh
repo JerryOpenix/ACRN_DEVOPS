@@ -69,3 +69,15 @@ EOF
 #date > build_log;
 #docker build --no-cache --build-arg https_proxy=http://child-prc.intel.com:913 -t hv_acrn_dev -f Dockerfile . | tee >(ts "%d-%m-%y %H_%M_%S" >> build_log);
 #date >> build_log
+
+#run docker
+# 1) --privileged: resolve mount issue
+# 2) --hostname: give hostname used to track whom build the image
+# 3) set https_proxy: WA git clone issue
+# 4) give localtime: WA time auto sync between docker & host
+#
+#    docker run -it --privileged -v $PWD:/home/ryoma/ACRN_REPO \
+#    --hostname "changcheng"  \
+#    --env https_proxy=http://child-prc.intel.com:913 \
+#    --env /etc/localtime:/etc/localtime:ro \
+#    hv_acrn_dev
