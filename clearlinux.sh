@@ -21,15 +21,15 @@ cat > Dockerfile << EOF
 FROM clearlinux:base
 
 MAINTAINER Liu Changcheng <changcheng.liu@intel.com>
-LABEL version="ver 0.1"
+LABEL version="ver 0.2"
 
 # Create lock file directory for processes to properly coordinate access to the shared device
 # Generate TLS trust store
 RUN mkdir -p /run/lock \\
      && clrtrust generate
 
-# Upgrade to Clear Linux version 22780
-RUN swupd verify -fYb -m 22780 -F 25
+# Upgrade to Clear Linux version 24120
+RUN swupd verify -fYb -m 24120 -F 25
 
 # Install Clear Linux and os-utils developement bundle
 # web-server-basic scm-server java-basic os-utils-gui-dev
@@ -37,13 +37,13 @@ RUN swupd verify -fYb -m 22780 -F 25
 #RUN swupd bundle-add mixer vim c-basic dev-utils-dev package-utils \\
 #	&& pip3 install kconfiglib \\
 #	&& swupd clean --all
-RUN swupd bundle-add os-clr-on-clr dev-utils-dev \\
+RUN swupd bundle-add os-clr-on-clr dev-utils-dev os-utils-gui-dev web-server-basic scm-server java-basic \\
      && swupd bundle-add -b python3-basic \\
      && pip3 install kconfiglib \\
 	 && swupd clean --all
 
 # Change the baseurl in [local] and [debuginfo] in clear.cfg
-RUN sed -i 's/current/releases\/22780\/clear/g' /usr/share/defaults/mock/clear.cfg
+RUN sed -i 's/current/releases\/24120\/clear/g' /usr/share/defaults/mock/clear.cfg
 
 RUN groupadd --gid $gid $username \\
 	&& useradd --gid $gid --uid $uid $username \\
