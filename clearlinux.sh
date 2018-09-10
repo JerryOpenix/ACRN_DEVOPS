@@ -41,8 +41,7 @@ RUN swupd clean --all
 
 # Create lock file directory for processes to properly coordinate access to the shared device
 # Generate TLS trust store
-RUN mkdir -p /run/lock \\
-     && clrtrust generate
+RUN mkdir -p /run/lock && rm -rf /run/lock/clrtrust.lock && clrtrust generate
 
 # Change the baseurl in [local] and [debuginfo] in clear.cfg
 RUN sed -i 's/current/releases\/24120\/clear/g' /usr/share/defaults/mock/clear.cfg
