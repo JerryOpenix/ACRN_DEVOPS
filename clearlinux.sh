@@ -32,10 +32,12 @@ RUN swupd verify -fYb -m 24120 -F 25
 #RUN swupd bundle-add mixer vim c-basic dev-utils-dev package-utils \\
 #	&& pip3 install kconfiglib \\
 #	&& swupd clean --all
-RUN swupd bundle-add os-clr-on-clr dev-utils-dev os-utils-gui-dev web-server-basic scm-server java-basic \\
-     && swupd bundle-add -b python3-basic \\
-     && pip3 install kconfiglib \\
-	 && swupd clean --all
+RUN swupd bundle-add os-clr-on-clr
+RUN swupd bundle-add os-utils-gui-dev
+RUN swupd bundle-add scm-server
+RUN swupd bundle-add java-basic
+RUN pip3 install kconfiglib
+RUN swupd clean --all
 
 # Create lock file directory for processes to properly coordinate access to the shared device
 # Generate TLS trust store
