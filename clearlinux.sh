@@ -79,8 +79,8 @@ EOF
 # 3) set https_proxy: WA git clone issue
 # 4) give localtime: WA time auto sync between docker & host
 #
-#    docker run -it --privileged -v $PWD:/home/ryoma/ACRN_REPO \
-#    --hostname "changcheng"  \
+#    docker run -it --privileged -v $PWD:/home/$(whoami)/ACRN_REPO \
+#    --hostname $(hostname)  \
 #    --env https_proxy=http://child-prc.intel.com:913 \
 #    --env /etc/localtime:/etc/localtime:ro \
 #    hv_acrn_dev
