@@ -71,6 +71,8 @@ EOF
 #date > build_log;
 #docker build --no-cache --build-arg https_proxy=http://child-prc.intel.com:913 -t hv_acrn_dev -f Dockerfile . | tee >(ts "%d-%m-%y %H_%M_%S" >> build_log);
 #date >> build_log
+#If you're always meet with http timeout or other network issue, please use below command:
+#docker build --build-arg https_proxy=http://child-prc.intel.com:913 -t hv_acrn_dev -f Dockerfile . | tee >(ts "%d-%m-%y %H_%M_%S" >> build_log);
 
 #run docker
 # 1) --privileged: resolve mount issue
