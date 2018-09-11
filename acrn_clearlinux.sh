@@ -2,9 +2,9 @@
 #
 rm -rf host_src
 mkdir -p host_src
-cp -frL ~/.ssh host_src
-cp -frL ~/.gitconfig host_src
-cp -frL ~/bin host_src
+[ -d $HOME/.ssh ] && cp -frL $HOME/.ssh host_src
+[ -e $HOME/.gitconfig ] && cp -frL $HOME/.gitconfig host_src
+[ -d $HOME/bin ] && cp -frL $HOME/bin host_src
 
 username=`whoami`
 if [ "$username" == "root" ];then
