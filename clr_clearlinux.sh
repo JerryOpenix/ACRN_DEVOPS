@@ -21,13 +21,14 @@ cat > Dockerfile << EOF
 FROM clearlinux/clr-sdk:latest
 
 MAINTAINER Liu Changcheng <changcheng.liu@intel.com>
-LABEL version="ver 0.1"
+LABEL version="ver 0.2"
 
 ENV DEBUG_KEY_PATH=https://download.clearlinux.org/secureboot/DefaultIASSigningPrivateKey.pem
 
 # Install Clear Linux and os-utils developement bundle
 # https://clearlinux.org/documentation/clear-linux/reference/bundles/available-bundles#available-bundles
 RUN swupd bundle-add iasimage
+RUN swupd bundle-add service-os
 
 # Create lock file directory for processes to properly coordinate access to the shared device
 # Generate TLS trust store
