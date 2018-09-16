@@ -88,8 +88,7 @@ EOF
 # 3) set https_proxy: WA git clone issue
 # 4) give localtime: WA time auto sync between docker & host
 #
-#    docker run -it --privileged -w $PWD -v $PWD:$PWD \
+#    docker run -it --privileged -w $PWD -v $PWD:$PWD -v /etc/localtime:/etc/localtime:ro \
 #    --hostname $(hostname)  -v /dev:/dev -v /tmp:/tmp -v /var:/var \
 #    --env https_proxy=http://child-prc.intel.com:913 --env http_proxy=http://child-prc.intel.com:913 \
-#    --env /etc/localtime:/etc/localtime:ro \
 #    sos_clr_sdk --mixdir=$PWD
