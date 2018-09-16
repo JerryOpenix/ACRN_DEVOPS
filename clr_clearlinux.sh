@@ -47,7 +47,7 @@ RUN groupadd --gid $gid $username \\
 #adding user to mock group for access to running mock
 RUN usermod -a -G mock,wheelnopw $username
 
-RUN echo "export PS1=\"[\u@\h:\W]\\\\\$ \"" >> /home/$username/.bashrc \\
+RUN echo "export PS1=\"[\u@\h:docker \W]\\\\\$ \"" >> /home/$username/.bashrc \\
 	&& echo "export PATH=~/bin:\$PATH" >> /home/$username/.bashrc
 
 COPY host_src /home/$username/
