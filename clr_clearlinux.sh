@@ -91,4 +91,4 @@ EOF
 #    docker run -it --privileged -w $PWD -v $PWD:$PWD -v /etc/localtime:/etc/localtime:ro \
 #    --hostname $(hostname)  -v /dev:/dev -v /tmp:/tmp -v /var:/var \
 #    --env https_proxy=http://child-prc.intel.com:913 --env http_proxy=http://child-prc.intel.com:913 \
-#    sos_clr_sdk --mixdir=$PWD
+#    sos_clr_sdk
