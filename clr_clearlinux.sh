@@ -92,3 +92,7 @@ EOF
 #    --hostname $(hostname)  -v /dev:/dev -v /tmp:/tmp -v /var:/var \
 #    --env https_proxy=http://child-prc.intel.com:913 --env http_proxy=http://child-prc.intel.com:913 \
 #    sos_clr_sdk
+# 5) If you use the above command, it may hit SSL certification problems when running the docker image on some ubuntu host.
+#    You can WA the problem by running below command in sos_clr_sdk docker image at the first time.
+#         clrtrust generate
+#    Mount host /var into docker image /var is not a goode idea. The above command will pupulate the host /var directory.
