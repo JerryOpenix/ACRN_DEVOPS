@@ -17,14 +17,11 @@ root_passwd=`sudo grep "root:" /etc/shadow`
 
 ################Generate dockerfile#######################
 cat > Dockerfile << EOF
-# Build from Clear Linux base image
-FROM clearlinux:base
+# Build from Clear Linux latest sdk image
+FROM clearlinux/clr-sdk:latest
 
 MAINTAINER Liu Changcheng <changcheng.liu@intel.com>
-LABEL version="ver 0.2"
-
-# Upgrade to Clear Linux version 24120
-RUN swupd verify -fYb -m 24120 -F 25
+LABEL version="ver 0.3"
 
 # Install Clear Linux and os-utils developement bundle
 # web-server-basic scm-server java-basic os-utils-gui-dev
@@ -32,7 +29,7 @@ RUN swupd verify -fYb -m 24120 -F 25
 #RUN swupd bundle-add mixer vim c-basic dev-utils-dev package-utils \\
 #	&& pip3 install kconfiglib \\
 #	&& swupd clean --all
-RUN swupd bundle-add os-clr-on-clr
+RUN swupd bundle-add service-os
 RUN swupd bundle-add os-utils-gui-dev
 RUN swupd bundle-add scm-server
 RUN swupd bundle-add java-basic
@@ -42,9 +39,6 @@ RUN swupd clean --all
 # Create lock file directory for processes to properly coordinate access to the shared device
 # Generate TLS trust store
 RUN mkdir -p /run/lock && rm -rf /run/lock/clrtrust.lock && clrtrust generate
-
-# Change the baseurl in [local] and [debuginfo] in clear.cfg
-RUN sed -i 's/current/releases\/24120\/clear/g' /usr/share/defaults/mock/clear.cfg
 
 RUN groupadd --gid $gid $username \\
 	&& useradd --gid $gid --uid $uid $username \\
@@ -67,7 +61,9 @@ COPY host_src /home/$username/
 WORKDIR /home/$username/ACRN_REPO
 USER $username
 
-CMD ["bash"]
+# WA problems: clearlinux sdk use /usr/bin/setup.py as the entrypoint of docker image. Let's override it.
+ENTRYPOINT ["/bin/bash"]
+
 EOF
 
 #date > build_log;
