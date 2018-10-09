@@ -56,7 +56,10 @@ RUN groupadd --gid $gid $username \\
 	&& echo "%root    ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/$username \\
 	&& chown $username:$username -R /home/$username
 
-RUN echo "export PS1=\"[\u@\h:\W]\\\\\$ \"" >> /home/$username/.bashrc \\
+#adding user to mock group for access to running mock
+RUN usermod -a -G mock,wheelnopw $username
+
+RUN echo "export PS1=\"[\u@\h:docker \W]\\\\\$ \"" >> /home/$username/.bashrc \\
 	&& echo "export PATH=~/bin:\$PATH" >> /home/$username/.bashrc
 
 COPY host_src /home/$username/
@@ -79,8 +82,7 @@ EOF
 # 3) set https_proxy: WA git clone issue
 # 4) give localtime: WA time auto sync between docker & host
 #
-#    docker run -it --privileged -v $PWD:/home/$(whoami)/ACRN_REPO \
+#    docker run -it --privileged -v $PWD:/home/$(whoami)/ACRN_REPO  --env /etc/localtime:/etc/localtime:ro \
 #    --hostname $(hostname)  \
-#    --env https_proxy=http://child-prc.intel.com:913 \
-#    --env /etc/localtime:/etc/localtime:ro \
+#    --env https_proxy=http://child-prc.intel.com:913 --env http_proxy=http://child-prc.intel.com:913 \
 #    hv_acrn_dev
