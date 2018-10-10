@@ -75,7 +75,7 @@ sudo service network-manager restart
  172.17.6.9  
   
  zhonghua@zhonghua-workstation:~$ cat /etc/default/docker  | grep DOCKER_OPTS  
- # Use DOCKER_OPTS to modify the daemon startup options.
+\# Use DOCKER_OPTS to modify the daemon startup options.  
  DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 --dns 10.248.2.5 --dns 10.239.27.228 --dns 172.17.6.9"  
   
 ## Reload systemd daemon and restart docker service

@@ -6,4 +6,4 @@ read docker_ce_setup.md
 use script acrn_clearlinux.sh
   
 ## clear linux team development docker environment  
-user script clr_clearlinux.sh  
+use script clr_clearlinux.sh  
