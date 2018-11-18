@@ -1,4 +1,5 @@
 # Install docker-ce on ubuntu 16.04
+Note: Install docker-ce on ubuntu 18.04(LTS 10 years) is better choice. Still install docker-ce:18.06.0 since kubernetes doesn't support latest docker API.
 ## Uninstall old docker
 sudo apt-get remove docker docker-engine docker.io  
 
